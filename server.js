@@ -22,10 +22,6 @@ app.use('/api/v1/category', Catrouter)
 app.use('/api/v1/product', ProductRouter)
 
 
-app.get("/", (req, res) => {
-    res.send("Hello from Ayano server")
-})
-
 app.use(express.static(path.join(__dirname,"../ecommerce/build")))
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, '../ecommerce/build/index.html'))
