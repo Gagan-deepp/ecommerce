@@ -8,9 +8,7 @@
     "server": "nodemon run server.js",
     "start" : "node server.js" ,
     "front": "npm start --prefix ../ecommerce",
-    "dev": "concurrently \"npm run start\" \"npm run front\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ecommerce && npm run build --prefix ecommerce"
-
+    "dev": "concurrently \"npm run start\" \"npm run front\""
   },
   "keywords": [],
   "author": "",
