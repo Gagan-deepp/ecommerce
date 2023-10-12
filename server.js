@@ -16,15 +16,14 @@ dotenv.config()
 app.use(cors())
 app.use(express.json())
 
-//* --> Routes
+//* --> Route
 app.use('/api/v1/auth', router)
 app.use('/api/v1/category', Catrouter)
 app.use('/api/v1/product', ProductRouter)
-
-
-app.use(express.static(path.join(__dirname,"../ecommerce/build")))
+ 
+app.use(express.static(path.join(__dirname,"./build")))
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, '../ecommerce/build/index.html'))
+    res.sendFile(path.join(__dirname, './build/index.html'))
 })
 
 app.listen(process.env.PORT || 8000, () => {
