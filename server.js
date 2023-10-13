@@ -6,6 +6,7 @@ const cors = require('cors')
 const path = require("path")
 const { Catrouter } = require('./routes/CategoryRoute')
 const { ProductRouter } = require('./routes/ProductRoute')
+const PORT = process.env.PORT || 8000
 
 //# --> DATABASE CONNECTION
 const app = express()
@@ -26,6 +27,6 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, './build/index.html'))
 })
 
-app.listen(process.env.PORT || 8000, () => {
-    console.log(`Connected to express server ${process.env.PORT}`)
+app.listen( PORT, () => {
+    console.log(`Connected to express server ${PORT}`)
 })
