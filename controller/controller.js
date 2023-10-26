@@ -7,6 +7,7 @@ const registerController = async (req, res) => {
     try {
 
         const { name, email, password, phone, address } = req.body
+
         if (!name) {
             return res.send({ message: "Name is required" })
         }
@@ -33,12 +34,23 @@ const registerController = async (req, res) => {
 
         const hash = await hashPassword(password)
 
-        const newUser = await new userModel({ name, email, phone, address, password: hash }).save()
+        await new userModel({ name, email, phone, address, password: hash }).save()
+
+        const user = await userModel.findOne({ email })
+
+        const token = await JWT.sign({ _id: user._id }, process.env.JWT_KEY, { expiresIn: "7d" })
 
         res.status(201).send({
             success: true,
             message: "User Registered Successfully !!!",
-            newUser
+            user: {
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                address: user.address,
+                role: user.role
+            },
+            token
         })
 
     } catch (error) {
@@ -143,8 +155,8 @@ const orderStatusController = async (req, res) => {
     try {
 
         const { itemId } = req.params
-        const { status } =req.body
-        const orders = await OrderModel.findByIdAndUpdate(itemId , {status} , {new:true})
+        const { status } = req.body
+        const orders = await OrderModel.findByIdAndUpdate(itemId, { status }, { new: true })
         res.status(200).send({
             success: true,
             orders
